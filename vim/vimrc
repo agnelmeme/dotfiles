@@ -9,7 +9,26 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-
+Plugin 'scrooloose/nerdtree'
+Plugin 'kien/ctrlp.vim'
+Plugin 'Raimondi/delimitMate'
+Plugin 'tpope/vim-fugitive'
+Plugin 'hallison/vim-markdown'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'ervandew/supertab'
+Plugin 'godlygeek/tabular'
+Plugin 'majutsushi/tagbar'
+Plugin 'tpope/vim-surround'
+Plugin 'luochen1990/rainbow'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'justinmk/vim-syntax-extra'
+Plugin 'alvan/vim-closetag'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'tpope/vim-repeat'
+Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'szw/vim-ctrlspace'
+Plugin 'danro/rename.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -25,3 +44,129 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+
+" Syntax highlight
+if has("syntax")
+	    syntax on
+    endif
+
+set encoding=utf-8
+let g:closetag_filenames = "*.xml,*.html,*.xsl,*.xhtml"
+
+syntax enable
+
+"Uncomment the following to have Vim jump to the last position when
+"reopening a file
+if has("autocmd")
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    filetype plugin indent on
+endif
+
+"Size of a hard tabstop
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+
+"The following are commented out as they cause vim to behave a lot
+"differently from regular Vi. They are highly recommended though.
+set showcmd		" Show (partial) command in status line.
+set showmatch		" Show matching brackets.
+"set ignorecase		" Do case insensitive matching
+set smartcase		" Do smart case matching
+"setincsearch		" Incremental search
+"setautowrite		" Automatically save before commands like :next and :make
+set hidden		" Hide buffers when they are abandoned
+set mouse=a		" Enable mouse usage (al modes)
+set modeline
+set ls=2
+set t_Co=256
+set background=dark
+let g:solarized_termcolors=256
+colorscheme solarized
+
+"ControlP specific options
+let g:ctrlp_switch_buffer = 'Et'  "ControlP will switch to buffer instead of opening new instance
+
+"Map<Leader> key to something more practival
+let mapleader=","
+"numberedlines
+set number
+
+"Ignorebinary files
+set wildignore+=*.so,*.swp,*.zip,*.o,*.a,*.class
+
+"Ignorescilab binary files
+set wildignore+=*.bin,*.mat
+
+"CtrlPoptions
+let g:ctrlp_max_files = 0
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_lazy_update = 1
+let g:ctrlp_open_new_file = 'r'
+let g:ctrlp_open_multiple_files = '10hj'
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:50'
+noremap <leader>b :CtrlPBuffer<CR>
+
+"Tabularmappings
+if exists(":Tabularize")
+    nmap <Leader>a= :Tabularize /=<CR>
+    vmap <Leader>a= :Tabularize /=<CR>
+    nmap <Leader>a: :Tabularize /:\zs<CR>
+    vmap <Leader>a: :Tabularize /:\zs<CR>
+endif
+
+"Forcefileformats unix
+set ffs=unix
+
+:nnoremap <silent> <F2> :TagbarToggle<CR>
+:nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+:nnoremap <silent> <F6> :update<CR> :e ++ff=dos<CR> :setlocal ff=unix<CR> :w<CR>
+:nnoremap <silent> <F4> :NERDTreeToggle <CR>
+:nnoremap <silent> <F8> :NERDTreeFind <CR>
+
+"NERDTreeOptions
+let NERDTreeIgnore=['\~$', '\.o$', '\.lo$', '\.swp', '\.bin']
+let NERDTreeWinSize=46
+
+"DelimitMateOptions
+let g:delimitMate_autoclose = 0
+let g:delimitMate_expand_cr = 1
+let g:delimitMate_expand_space = 1
+let g:delimitMate_jump_expansion = 1
+
+au BufRead,BufNewFile *.tst set ft=scilab
+au BufRead,BufNewFile *.start set ft=scilab
+au BufRead,BufNewFile *.quit set ft=scilab
+au BufRead,BufNewFile *.dia.ref set ft=scilab
+au BufRead,BufNewFile *.moin set ft=moin
+
+" listchars
+set list lcs=trail:ˑ,tab:»ˑ,eol:¬
+
+" Fugitive options
+set diffopt+=vertical
+
+" Airline options
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts=1
+
+let g:airline_theme = 'molokai'
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
+
+" Rainbow Parentheses activation
+let g:rainbow_active = 1
