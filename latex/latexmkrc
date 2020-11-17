@@ -1,0 +1,5 @@
+$dvi_previewer = 'start xdvi -watchfile 1.5';
+$ps_previewer  = 'start gv --watch';
+$pdf_previewer = 'start evince';
+$pdf_mode = 1;
+$clean_ext = ("synctex.gz", "thm", "snm", "nav");
